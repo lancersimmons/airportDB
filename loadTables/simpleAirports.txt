@@ -1,0 +1,9 @@
+Insert into Airport Values ("Washington Dulles International Airport", "IAD", "Washinton DC", "United States");
+Insert into Airport Values ("Charlottesville Albemarle Airport", "CHO", "Charlottesville", "United States");
+Insert into Airport Values ("Charlotte Douglas International Airport", "CLT", "Charlotte", "United States");
+Insert into Airport Values ("Chicago O'Hare International Airport", "ORD", "Chicago", "United States");
+Insert into Airport Values ("Denver International Airport", "DEN", "Denver", "United States");
+Insert into Airport Values ("Los Angeles International Airport", "LAX", "Los Angeles", "United States");
+Insert into Airport Values ("Ronald Reagan Washington National Airport", "DCA", "Washington DC", "United States");
+Insert into Airport Values ("Toronto Pearson International Airport", "YYZ", "Toronto", "Canada");
+Insert into Airport Values ("Heathrow Airport", "LHR", "Longford", "England");
