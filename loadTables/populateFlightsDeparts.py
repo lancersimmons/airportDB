@@ -96,12 +96,12 @@ for planeIterator in planeLines:
     queryString = queryString + "\"" + str(arrivalTime) + "\"" + " "
     queryString = queryString + ");\n"
 
-    print(queryString)
+    # print(queryString)
     fileHandler2.write(queryString)
 
 
 
-    for x in range(0,19):
+    for x in range(0,500):
 
         flightId = str(uuid.uuid4())
 
@@ -145,7 +145,7 @@ for planeIterator in planeLines:
         queryString = queryString + "\"" + str(arrivalTime) + "\"" + " "
         queryString = queryString + ");\n"
 
-        print(queryString)
+        # print(queryString)
         fileHandler2.write(queryString)
 
 

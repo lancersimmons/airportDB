@@ -2,6 +2,8 @@
 # assemble person tables, login tables
 
 import sys
+import hashlib
+import random
 
 print( 'Number of arguments:', len(sys.argv), 'arguments.')
 print( 'Argument List:', str(sys.argv))
@@ -48,7 +50,9 @@ for line in fileHandler1:
 #     print()
 
 fileHandler2 = open("persons.txt", "w")
+fileHandler3 = open("logins.txt", "w")
 
+salt = "secretstring"
 
 for element in splitLines:
     queryString = ""
@@ -57,37 +61,60 @@ for element in splitLines:
 
     queryString = queryString + "\"" + element[2] + "\"" + ", "
     queryString = queryString + "\"" + element[4] + "\"" + ", "
-    queryString = queryString + "\"" + element[9] + "\"" + ", "
-    queryString = queryString + "\"" + element[10] + "\"" + ", "
+
+
+    usernameToInsert = element[9] + str(random.randint(0,9999))
+    queryString = queryString + "\"" + usernameToInsert + "\"" + ", "
+
+
+
+
+
+
+    # gender
     queryString = queryString + "\"" + element[1][0] + "\"" + ", "
-    queryString = queryString + "\"" + element[11] + "\"" + ", "
-    queryString = queryString + "0" + ", "              # age
+
+
+    # mdy -> ymd
+    monthDayAndYear = element[11].split("/")
+    dateToInsert = monthDayAndYear[2] + "-" + monthDayAndYear[0] + "-" + monthDayAndYear[1]
+
+    queryString = queryString + "\"" + dateToInsert + "\"" + ", "
+
     queryString = queryString + "\"" + element[5] + "\"" + ", "
     queryString = queryString + "\"" + element[6] + "\"" + ", "
     queryString = queryString + "\"" + element[7] + "\"" + ", "
-    queryString = queryString + "\"" + element[8] + "\"" + ", "
+
     queryString = queryString + "\"" + element[13][:-1] + "\"" + ", "   #strip ending \n from telephone number
     queryString = queryString + "\"" + element[12] + "\"" + " "
     queryString = queryString + ");\n"
 
     # print(queryString)
+    # WRITE OUT TO PERSON TABLE
     fileHandler2.write(queryString)
-    # exit()
 
-fileHandler2.close()
-fileHandler2 = open("logins.txt", "w")
 
-for element in splitLines:
+
+
+
+    # NEXT WE DO LOGINS
     queryString = ""
     queryString = queryString + "INSERT INTO Login "
     queryString = queryString + "VALUES ( "
-    queryString = queryString + "\"" + element[9] + "\"" + ", "
-    queryString = queryString + "\"" + element[10] + "\"" + " "
+    queryString = queryString + "\"" + usernameToInsert + "\"" + ", "
+
+
+
+    # password
+    password = element[10]
+    passwordAndSalt = password + salt
+
+    m = hashlib.sha256()
+    m.update((password + salt).encode('utf-8'))
+    hashedPassword = m.hexdigest()
+
+    queryString = queryString + "\"" + hashedPassword + "\"" + " "
     queryString = queryString + ");\n"
 
     # print(queryString)
-    fileHandler2.write(queryString)
-    # exit()
-
-
-
+    fileHandler3.write(queryString)

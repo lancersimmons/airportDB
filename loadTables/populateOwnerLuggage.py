@@ -92,6 +92,7 @@ for element in splitLines:
 
             fileHandler2.write(queryString)
 
+        exit()
     else:
         pass
         # do nothing for employees
